@@ -7,29 +7,12 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     )
 })
 function Key () {
-    Nøgle = sprites.create(assets.image`key`, SpriteKind.Food)
+    Nøgle = sprites.create(assets.image`nøglee`, SpriteKind.Food)
     tiles.placeOnRandomTile(Nøgle, sprites.dungeon.darkGroundSouthWest0)
     animation.runImageAnimation(
     Nøgle,
-    [img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `],
-    500,
+    assets.animation`nøgleanimation`,
+    200,
     true
     )
 }
@@ -40,9 +23,6 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     500,
     true
     )
-})
-scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.chestClosed, function (sprite, location) {
-	
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -91,5 +71,5 @@ Spiller = sprites.create(img`
 controller.moveSprite(Spiller)
 tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
 scene.cameraFollowSprite(Spiller)
-info.setLife(4)
+info.setLife(3)
 Key()
