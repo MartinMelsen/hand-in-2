@@ -91,5 +91,5 @@ Spiller = sprites.create(img`
 controller.moveSprite(Spiller)
 tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
 scene.cameraFollowSprite(Spiller)
-info.setLife(4)
+info.setLife(3)
 Key()
