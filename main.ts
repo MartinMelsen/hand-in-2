@@ -17,7 +17,7 @@ function Titlescreen () {
     navn = game.askForString("Hvad er dit navn?")
     game.showLongText("Hjertligt velkommen, " + navn, DialogLayout.Bottom)
     scene.setBackgroundImage(assets.image`Haunted house`)
-    game.splash("Træd nærmere det (måske) hjemsøgte hus ")
+    game.splash("Træd nærmere det (måske) hjemsøgte hus ", navn)
     effects.smiles.endScreenEffect()
 }
 function Key () {
@@ -80,6 +80,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Kiste, function (sprite, otherSp
 function padlock () {
     pin = game.askForNumber("Hvad er koden!?", 3)
     if (pin == 248) {
+        game.setDialogCursor(assets.image`nøgle`)
         åbendør = true
         game.splash("tillyke! Du klarede level 0, ", navn)
         tiles.setCurrentTilemap(tilemap`level 1`)
@@ -140,4 +141,4 @@ info.setLife(3)
 Key()
 chest()
 game.showLongText("Find nøglen", DialogLayout.Bottom)
-game.setDialogCursor(assets.image`nøglee`)
+game.showLongText("Du bevæger dig med W, A, S, og D ", DialogLayout.Bottom)
