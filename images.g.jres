@@ -19,6 +19,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "LukketKiste"
     },
+    "image4": {
+        "data": "hwQQABAAAAA6o8zMqsyszDqjrMyqrKzMOqM8yqqszMw8qjzKzKzMzMzMzMzMzKzMOqPdvbu7y8w6o828u7vLzDqjTcTMzMvMOqNN1M3My8w6o929u7vLzDqj3b27u8vMPKPMzMzMzMzMzDzKzKyszDrDPMqqrKzMOqM8yqqsrMw6o6zKqsyszA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "pad"
+    },
     "anim1": {
         "namespace": "myAnimations",
         "id": "anim1",

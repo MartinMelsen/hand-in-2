@@ -42,6 +42,7 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Kiste, function (sprite, otherSprite) {
     if (HasKey == true) {
         game.splash("Godt fundet! Koden er 248")
+        game.setDialogCursor(assets.image`pad`)
     } else {
         game.splash("Find lige nøglen først ffs!!")
     }
@@ -51,6 +52,12 @@ function padlock () {
     pin = game.askForNumber("Hvad er koden!?", 3)
     if (pin == 248) {
         åbendør = true
+        game.splash("tillyke! Du klarede level 0")
+        tiles.setCurrentTilemap(tilemap`level 1`)
+        tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
+    } else {
+        game.splash("forkert kode noob!")
+        tiles.placeOnTile(Spiller, tiles.getTileLocation(2, 14))
     }
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -60,6 +67,9 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     500,
     true
     )
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.purpleSwitchUp, function (sprite, location) {
+    padlock()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     sprites.destroy(otherSprite)
