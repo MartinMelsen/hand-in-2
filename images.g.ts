@@ -60,6 +60,25 @@ namespace myImages {
 . 5 5 5 4 . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `;
+            case "image3":
+            case "LukketKiste":return img`
+. . b b b b b b b b b b b b . . 
+. b e 4 4 4 4 4 4 4 4 4 4 e b . 
+b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
+b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
+b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
+b e e 4 4 4 4 4 4 4 4 4 4 e e b 
+b e e e e e e e e e e e e e e b 
+b e e e e e e e e e e e e e e b 
+b b b b b b b d d b b b b b b b 
+c b b b b b b c c b b b b b b c 
+c c c c c c b c c b c c c c c c 
+b e e e e e c b b c e e e e e b 
+b e e e e e e e e e e e e e e b 
+b c e e e e e e e e e e e e c b 
+b b b b b b b b b b b b b b b b 
+. b b . . . . . . . . . . b b . 
+`;
         }
         return null;
     })

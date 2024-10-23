@@ -14,6 +14,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "nøglee"
     },
+    "image3": {
+        "data": "hwQQABAAAAAAu7u7y7y7C7Du7u677M6760Tk7rvs7rtLRETuu+zuC0tERO677O4LS0RE7rvs7gtLRETuu8vuC0tERO7NvO4LS0RE7s287gtLRETuu8vuC0tERO677O4LS0RE7rvs7gtLRETuu+zuC+tE5O677O67sO7u7rvszrsAu7u7y7y7Cw==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "LukketKiste"
+    },
     "anim1": {
         "namespace": "myAnimations",
         "id": "anim1",

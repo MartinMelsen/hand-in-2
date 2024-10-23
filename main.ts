@@ -1,3 +1,6 @@
+namespace SpriteKind {
+    export const Kiste = SpriteKind.create()
+}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     Spiller,
@@ -24,6 +27,10 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+function chest () {
+    Kiste = sprites.create(assets.image`LukketKiste`, SpriteKind.Kiste)
+    tiles.placeOnRandomTile(Kiste, sprites.dungeon.chestClosed)
+}
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     Spiller,
@@ -32,6 +39,20 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Kiste, function (sprite, otherSprite) {
+    if (HasKey == true) {
+        game.splash("Godt fundet! Koden er 248")
+    } else {
+        game.splash("Find lige nøglen først ffs!!")
+    }
+    pause(2000)
+})
+function padlock () {
+    pin = game.askForNumber("Hvad er koden!?", 3)
+    if (pin == 248) {
+        åbendør = true
+    }
+}
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     Spiller,
@@ -40,13 +61,14 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
-	
-})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
-    info.changeScoreBy(1)
     sprites.destroy(otherSprite)
+    HasKey = true
 })
+let åbendør = false
+let pin = 0
+let HasKey = false
+let Kiste: Sprite = null
 let Nøgle: Sprite = null
 let Spiller: Sprite = null
 tiles.setCurrentTilemap(tilemap`level0`)
@@ -73,3 +95,4 @@ tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
 scene.cameraFollowSprite(Spiller)
 info.setLife(3)
 Key()
+chest()
