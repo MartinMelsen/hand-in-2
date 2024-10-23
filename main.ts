@@ -1,3 +1,6 @@
+namespace SpriteKind {
+    export const Chest = SpriteKind.create()
+}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     Spiller,
@@ -11,25 +14,8 @@ function Key () {
     tiles.placeOnRandomTile(Nøgle, sprites.dungeon.darkGroundSouthWest0)
     animation.runImageAnimation(
     Nøgle,
-    [img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `],
-    500,
+    assets.animation`keyanimation`,
+    200,
     true
     )
 }
@@ -40,9 +26,6 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     500,
     true
     )
-})
-scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.chestClosed, function (sprite, location) {
-	
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
