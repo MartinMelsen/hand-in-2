@@ -76,3 +76,21 @@ tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
 scene.cameraFollowSprite(Spiller)
 info.setLife(3)
 Key()
+// Variable to check if the player has the key
+let hasKey = false
+// When player overlaps with key, collect the key
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    hasKey = true
+    otherSprite.destroy()
+    game.splash("You collected the key!")
+})
+
+// When player overlaps with chest, check if they have the key
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Chest, function (sprite, otherSprite) {
+    if (hasKey) {
+        game.splash("You opened the chest!")
+        otherSprite.destroy()
+    } else {
+        game.splash("You need a key to open this chest.")
+    }
+})
