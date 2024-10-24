@@ -15,7 +15,7 @@ function Titlescreen () {
     game.showLongText("Ikke for børn og sarte sjæle", DialogLayout.Bottom)
     game.showLongText("Lad os lige få det på det rene", DialogLayout.Bottom)
     navn = game.askForString("Hvad er dit navn?")
-    game.showLongText("Hjertligt velkommen, " + navn, DialogLayout.Bottom)
+    game.showLongText("Velkommen, " + navn, DialogLayout.Bottom)
     scene.setBackgroundImage(assets.image`Haunted house`)
     game.splash("Træd nærmere det (måske) hjemsøgte hus ", navn)
     effects.smiles.endScreenEffect()
@@ -38,6 +38,16 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+function Zombie () {
+    zombie = sprites.create(assets.image`zombie`, SpriteKind.Enemy)
+    zombie.follow(Spiller, 20)
+    Zombiearray = [
+    0,
+    1,
+    2,
+    3
+    ]
+}
 function chest () {
     Kiste2 = sprites.create(assets.image`LukketKiste`, SpriteKind.Kiste)
     tiles.placeOnRandomTile(Kiste2, sprites.dungeon.chestClosed)
@@ -63,15 +73,17 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     )
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Kiste, function (sprite, otherSprite) {
-    if (HasKey == true) {
+    if (info.score() == 1) {
         animation.runImageAnimation(
         Kiste2,
         assets.animation`kisteanimation`,
         200,
         false
         )
-        game.splash("Godt fundet! Koden er 248")
+        game.splash("Godt fundet! Koden er 248", "Find håndtaget!")
         game.setDialogCursor(assets.image`pad`)
+    } else if (info.score() == 3) {
+        game.splash("Det kører!", "Koden er 387")
     } else {
         game.splash("Find lige nøglen først ffs!!")
     }
@@ -87,9 +99,17 @@ function padlock () {
         tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
         sprites.destroy(Kiste2)
         Key2()
+        chest2()
+        info.changeScoreBy(1)
     } else {
         game.splash("forkert kode noob!")
         tiles.placeOnTile(Spiller, tiles.getTileLocation(2, 14))
+    }
+}
+function chest2 () {
+    if (info.score() == 1) {
+        Kiste2 = sprites.create(assets.image`LukketKiste`, SpriteKind.Kiste)
+        tiles.placeOnRandomTile(Kiste2, sprites.dungeon.chestClosed)
     }
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -108,10 +128,12 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSpri
     sprites.destroy(otherSprite)
     HasKey = true
 })
+let HasKey = false
 let åbendør = false
 let pin = 0
-let HasKey = false
 let Kiste2: Sprite = null
+let Zombiearray: number[] = []
+let zombie: Sprite = null
 let Nøgle: Sprite = null
 let navn = ""
 let Spiller: Sprite = null
@@ -141,4 +163,4 @@ info.setLife(3)
 Key()
 chest()
 game.showLongText("Find nøglen", DialogLayout.Bottom)
-game.showLongText("Du bevæger dig med W, A, S, og D ", DialogLayout.Bottom)
+game.splash("Du bevæger dig med", "W, A, S og D")
