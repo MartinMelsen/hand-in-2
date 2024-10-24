@@ -567,7 +567,7 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 . . . . . f f . . f f . . . . 
 `;
             case "image8":
-            case "vampyr":return img`
+            case "flagermusen":return img`
 . . f f f . . . . . . . . . . . 
 f f f c c . . . . . . . . f f f 
 f f c c c . c c . . . f c b b c 

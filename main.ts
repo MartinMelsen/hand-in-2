@@ -20,6 +20,9 @@ function Titlescreen () {
     game.splash("Træd nærmere det (måske) hjemsøgte hus ", navn)
     effects.smiles.endScreenEffect()
 }
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.greenSwitchUp, function (sprite, location) {
+    padlock1()
+})
 function Key () {
     Nøgle = sprites.create(assets.image`nøglee`, SpriteKind.key)
     tiles.placeOnRandomTile(Nøgle, sprites.dungeon.darkGroundSouthWest0)
@@ -90,23 +93,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Kiste, function (sprite, otherSp
     }
     pause(2000)
 })
-function padlock () {
-    pin = game.askForNumber("Hvad er koden!?", 3)
-    if (pin == 248) {
-        game.setDialogCursor(assets.image`nøgle`)
-        åbendør = true
-        game.splash("tillyke! Du klarede level 0, ", navn)
-        tiles.setCurrentTilemap(tilemap`level 1`)
-        tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
-        sprites.destroy(Kiste2)
-        Key2()
-        info.changeScoreBy(1)
-        chest2()
-    } else {
-        game.splash("forkert kode noob!")
-        tiles.placeOnTile(Spiller, tiles.getTileLocation(2, 14))
-    }
-}
 function chest2 () {
     if (info.score() == 2) {
         kistelvl1 = sprites.create(assets.image`LukketKiste`, SpriteKind.Kiste)
@@ -121,20 +107,61 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
-function flagermus2 () {
-    flagermus = sprites.create(assets.image`vampyr`, SpriteKind.Projectile)
-    tiles.placeOnTile(flagermus, tiles.getTileLocation(randint(6, 7), randint(10, 13)))
-    flagermus.setBounceOnWall(true)
-}
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.purpleSwitchUp, function (sprite, location) {
-    padlock()
+    padlock1()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSprite) {
     info.changeScoreBy(1)
     sprites.destroy(otherSprite)
 })
-let flagermus: Sprite = null
-let åbendør = false
+function Key3 () {
+    if (info.score() == 3) {
+        Nøgle = sprites.create(assets.image`nøglee`, SpriteKind.key)
+        tiles.placeOnTile(Nøgle, tiles.getTileLocation(14, 14))
+        animation.runImageAnimation(
+        Nøgle,
+        assets.animation`nøgleanimation`,
+        200,
+        true
+        )
+    }
+}
+function padlock1 () {
+    pin = game.askForNumber("Hvad er koden!?", 3)
+    if (pin == 248) {
+        game.setDialogCursor(assets.image`nøgle`)
+        game.splash("tillyke! Du klarede level 0, ", navn)
+        tiles.setCurrentTilemap(tilemap`level 1`)
+        tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
+        sprites.destroy(Kiste2)
+        Key2()
+        info.changeScoreBy(1)
+        chest2()
+    } else if (pin == 387) {
+        game.splash("tillyke! Du klarede level 1, ", navn)
+        tiles.setCurrentTilemap(tilemap`level2`)
+        tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
+        info.changeScoreBy(1)
+    } else {
+        game.splash("forkert kode noob!")
+        if (info.score() < 2) {
+            tiles.placeOnTile(Spiller, tiles.getTileLocation(2, 14))
+        } else if (info.score() == 2) {
+        	
+        } else {
+        	
+        }
+    }
+}
+function Flagermus () {
+    Flagermus1 = sprites.create(assets.image`flagermusen`, SpriteKind.Projectile)
+    tiles.placeOnTile(Flagermus1, tiles.getTileLocation(randint(1, 10), randint(1, 10)))
+    Flagermus1.setBounceOnWall(true)
+    for (let index = 0; index < 500; index++) {
+        Flagermus1.setVelocity(randint(-70, 70), randint(-50, 50))
+    }
+}
+let Flagermus1: Sprite = null
 let pin = 0
 let kistelvl1: Sprite = null
 let Kiste2: Sprite = null
@@ -165,18 +192,17 @@ controller.moveSprite(Spiller)
 tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
 scene.cameraFollowSprite(Spiller)
 info.setLife(3)
-Key()
-chest()
 game.showLongText("Find nøglen", DialogLayout.Bottom)
 game.splash("Du bevæger dig med", "W, A, S og D")
-game.onUpdateInterval(2000, function () {
-    flagermus.setVelocity(randint(-70, 70), randint(-50, 50))
-})
+Key()
+chest()
 game.onUpdateInterval(10000, function () {
     if (info.score() == 2) {
         Zombie()
     } else if (info.score() == 4) {
-    	
+        for (let index = 0; index < 2; index++) {
+            Flagermus()
+        }
     } else {
         sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
     }
