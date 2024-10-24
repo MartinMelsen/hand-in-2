@@ -39,14 +39,9 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     )
 })
 function Zombie () {
-    zombie = sprites.create(assets.image`zombie`, SpriteKind.Enemy)
+    zombie = sprites.create(assets.image`zombie2`, SpriteKind.Enemy)
     zombie.follow(Spiller, 20)
-    Zombiearray = [
-    0,
-    1,
-    2,
-    3
-    ]
+    tiles.placeOnRandomTile(zombie, sprites.dungeon.floorDarkDiamond)
 }
 function chest () {
     Kiste2 = sprites.create(assets.image`LukketKiste`, SpriteKind.Kiste)
@@ -83,6 +78,12 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Kiste, function (sprite, otherSp
         game.splash("Godt fundet! Koden er 248", "Find håndtaget!")
         game.setDialogCursor(assets.image`pad`)
     } else if (info.score() == 3) {
+        animation.runImageAnimation(
+        kistelvl1,
+        assets.animation`kisteanimation`,
+        200,
+        false
+        )
         game.splash("Det kører!", "Koden er 387")
     } else {
         game.splash("Find lige nøglen først ffs!!")
@@ -99,17 +100,17 @@ function padlock () {
         tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
         sprites.destroy(Kiste2)
         Key2()
-        chest2()
         info.changeScoreBy(1)
+        chest2()
     } else {
         game.splash("forkert kode noob!")
         tiles.placeOnTile(Spiller, tiles.getTileLocation(2, 14))
     }
 }
 function chest2 () {
-    if (info.score() == 1) {
-        Kiste2 = sprites.create(assets.image`LukketKiste`, SpriteKind.Kiste)
-        tiles.placeOnRandomTile(Kiste2, sprites.dungeon.chestClosed)
+    if (info.score() == 2) {
+        kistelvl1 = sprites.create(assets.image`LukketKiste`, SpriteKind.Kiste)
+        tiles.placeOnRandomTile(kistelvl1, sprites.dungeon.chestClosed)
     }
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -126,13 +127,11 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.purpleSwitchUp, function 
 sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSprite) {
     info.changeScoreBy(1)
     sprites.destroy(otherSprite)
-    HasKey = true
 })
-let HasKey = false
 let åbendør = false
 let pin = 0
+let kistelvl1: Sprite = null
 let Kiste2: Sprite = null
-let Zombiearray: number[] = []
 let zombie: Sprite = null
 let Nøgle: Sprite = null
 let navn = ""
@@ -164,3 +163,12 @@ Key()
 chest()
 game.showLongText("Find nøglen", DialogLayout.Bottom)
 game.splash("Du bevæger dig med", "W, A, S og D")
+game.onUpdateInterval(10000, function () {
+    if (info.score() == 2) {
+        Zombie()
+    } else if (info.score() == 4) {
+    	
+    } else {
+        sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
+    }
+})

@@ -547,6 +547,25 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 .......................................
 .......................................
 `;
+            case "image7":
+            case "zombie2":return img`
+. . . . . . 7 7 f 2 . . . . . 
+. . . b 7 7 7 7 f 2 2 d . . . 
+. . b 7 7 7 7 7 f 2 d 2 d . . 
+. b 7 7 7 7 7 7 7 f 2 d 2 d . 
+. b 7 7 7 7 7 7 7 7 f 2 d 2 . 
+. b 7 7 7 7 7 7 7 7 7 f 2 2 . 
+. b 7 7 7 7 7 7 7 7 7 7 f f . 
+. 7 7 7 7 b f 7 7 f b 7 7 7 7 
+. 7 7 7 7 1 f 7 7 f 1 7 7 7 7 
+. . 7 7 7 7 7 7 7 7 7 7 7 7 . 
+. . c 7 7 7 7 7 7 7 7 7 7 . . 
+. . 7 7 f 2 2 2 2 2 2 f 7 7 . 
+. c 7 7 f 2 2 2 2 2 2 f 7 7 . 
+. . 7 7 f 4 4 5 5 4 4 f 7 7 . 
+. . . . . f f f f f f . . . . 
+. . . . . f f . . f f . . . . 
+`;
         }
         return null;
     })
@@ -904,6 +923,25 @@ b e e e e e e e e e e e e e e b
 b c e e e e e e e e e e e e c b 
 b b b b b b b b b b b b b b b b 
 . b b . . . . . . . . . . b b . 
+`];
+            case "myAnim":
+            case "anim7":return [img`
+. . . b 7 7 7 7 . . . . . . . . 
+. . d 7 7 7 7 7 b . . . . . . . 
+. . b 7 7 e 7 7 b . . . . . . . 
+. . b f e d b 7 7 . . . . . . . 
+. . d c 7 e e e e . . . . . . . 
+. . . b e 7 7 b c . . . . . . . 
+. . . . . d 7 e e b . . . . . . 
+. . . . . b 7 7 b d d d b 7 e e 
+. . . . b d d c d b b d b e c d 
+. . . . b d d e d . . . . . . . 
+. . . . 7 1 d e e . . . . . . . 
+. . . . d 7 e e e d . . . . . . 
+. . . . . d 7 e c c . . . . . . 
+. . . . . . c c d c c . . . . . 
+. . . . . . c c . . c d . . . . 
+. . . . . b c . . . c c . . . . 
 `];
         }
         return null;
