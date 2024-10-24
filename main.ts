@@ -121,6 +121,11 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+function flagermus2 () {
+    flagermus = sprites.create(assets.image`vampyr`, SpriteKind.Projectile)
+    tiles.placeOnTile(flagermus, tiles.getTileLocation(randint(6, 7), randint(10, 13)))
+    flagermus.setBounceOnWall(true)
+}
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.purpleSwitchUp, function (sprite, location) {
     padlock()
 })
@@ -128,6 +133,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSpri
     info.changeScoreBy(1)
     sprites.destroy(otherSprite)
 })
+let flagermus: Sprite = null
 let åbendør = false
 let pin = 0
 let kistelvl1: Sprite = null
@@ -163,6 +169,9 @@ Key()
 chest()
 game.showLongText("Find nøglen", DialogLayout.Bottom)
 game.splash("Du bevæger dig med", "W, A, S og D")
+game.onUpdateInterval(2000, function () {
+    flagermus.setVelocity(randint(-70, 70), randint(-50, 50))
+})
 game.onUpdateInterval(10000, function () {
     if (info.score() == 2) {
         Zombie()
