@@ -21,7 +21,7 @@ function Titlescreen () {
     effects.smiles.endScreenEffect()
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.greenSwitchUp, function (sprite, location) {
-    padlock1()
+    Padlock2()
 })
 function Key () {
     Nøgle = sprites.create(assets.image`nøglee`, SpriteKind.key)
@@ -110,6 +110,18 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.purpleSwitchUp, function (sprite, location) {
     padlock1()
 })
+function Padlock2 () {
+    pin = game.askForNumber("Hvad er koden!?", 3)
+    if (pin == 387) {
+        game.splash("tillyke! Du klarede level 1, ", navn)
+        tiles.setCurrentTilemap(tilemap`level2`)
+        tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
+        info.changeScoreBy(1)
+    } else {
+        game.splash("forkert kode noob!")
+        tiles.placeOnTile(Spiller, tiles.getTileLocation(7, 14))
+    }
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSprite) {
     info.changeScoreBy(1)
     sprites.destroy(otherSprite)
@@ -137,17 +149,10 @@ function padlock1 () {
         Key2()
         info.changeScoreBy(1)
         chest2()
-    } else if (pin == 387) {
-        game.splash("tillyke! Du klarede level 1, ", navn)
-        tiles.setCurrentTilemap(tilemap`level2`)
-        tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
-        info.changeScoreBy(1)
     } else {
         game.splash("forkert kode noob!")
         if (info.score() < 2) {
             tiles.placeOnTile(Spiller, tiles.getTileLocation(2, 14))
-        } else if (info.score() == 2) {
-        	
         } else {
         	
         }
