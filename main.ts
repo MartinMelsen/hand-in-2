@@ -2,6 +2,30 @@ namespace SpriteKind {
     export const Kiste = SpriteKind.create()
     export const key = SpriteKind.create()
 }
+function Padlock3 () {
+    pin = game.askForNumber("Hvad er koden!?", 3)
+    if (pin == 651) {
+        game.splash("Uhørt! Videre til lvl 3", navn)
+        tiles.setCurrentTilemap(tilemap`level3`)
+        tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
+        info.changeScoreBy(1)
+        animation.runImageAnimation(
+        kistelvl1,
+        assets.animation`kisteanimation2`,
+        200,
+        false
+        )
+        sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
+        sprites.destroyAllSpritesOfKind(SpriteKind.Projectile)
+        sprites.destroy(kistelvl1)
+        Spiller.sayText("Hvilken kiste?", 2000, false)
+        chest4()
+        Key4()
+    } else {
+        game.splash("forkert kode noob!")
+        tiles.placeOnTile(Spiller, tiles.getTileLocation(13, 14))
+    }
+}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     Spiller,
@@ -10,6 +34,12 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+function chest3 () {
+    if (info.score() == 4) {
+        kistelvl1 = sprites.create(assets.image`LukketKiste`, SpriteKind.Kiste)
+        tiles.placeOnRandomTile(kistelvl1, sprites.dungeon.chestClosed)
+    }
+}
 function Titlescreen () {
     scene.setBackgroundImage(assets.image`Haunted Village`)
     game.showLongText("Ikke for børn og sarte sjæle", DialogLayout.Bottom)
@@ -21,7 +51,17 @@ function Titlescreen () {
     effects.smiles.endScreenEffect()
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.greenSwitchUp, function (sprite, location) {
-    Padlock2()
+    if (info.score() == 2) {
+        Padlock2()
+    } else if (info.score() == 3) {
+        Padlock2()
+    } else if (info.score() == 4) {
+        Padlock3()
+    } else if (info.score() == 5) {
+        Padlock3()
+    } else {
+    	
+    }
 })
 function Key () {
     Nøgle = sprites.create(assets.image`nøglee`, SpriteKind.key)
@@ -41,6 +81,18 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+function Key4 () {
+    if (info.score() == 6) {
+        Nøgle = sprites.create(assets.image`nøglee`, SpriteKind.key)
+        tiles.placeOnTile(Nøgle, tiles.getTileLocation(14, 14))
+        animation.runImageAnimation(
+        Nøgle,
+        assets.animation`nøgleanimation`,
+        200,
+        true
+        )
+    }
+}
 function Zombie () {
     zombie = sprites.create(assets.image`zombie2`, SpriteKind.Enemy)
     zombie.follow(Spiller, 20)
@@ -70,6 +122,12 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+function chest4 () {
+    if (info.score() == 6) {
+        kistelvl1 = sprites.create(assets.image`LukketKiste`, SpriteKind.Kiste)
+        tiles.placeOnRandomTile(kistelvl1, sprites.builtin.forestTiles0)
+    }
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Kiste, function (sprite, otherSprite) {
     if (info.score() == 1) {
         animation.runImageAnimation(
@@ -88,6 +146,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Kiste, function (sprite, otherSp
         false
         )
         game.splash("Det kører!", "Koden er 387")
+    } else if (info.score() == 5) {
+        game.splash("For nemt...", "651")
+    } else if (info.score() == 7) {
+        game.splash("Nu står den i", "matematikkens tegn")
+        game.splash("Klar på det?", navn)
     } else {
         game.splash("Find lige nøglen først ffs!!")
     }
@@ -110,6 +173,12 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.purpleSwitchUp, function (sprite, location) {
     padlock1()
 })
+function Spøgelse () {
+    spøgelse1 = sprites.create(assets.image`spøgelse`, SpriteKind.Enemy)
+    spøgelse1.setVelocity(-50, 0)
+    spøgelse1.setBounceOnWall(true)
+    tiles.placeOnTile(spøgelse1, tiles.getTileLocation(7, 1))
+}
 function Padlock2 () {
     pin = game.askForNumber("Hvad er koden!?", 3)
     if (pin == 387) {
@@ -117,6 +186,17 @@ function Padlock2 () {
         tiles.setCurrentTilemap(tilemap`level2`)
         tiles.placeOnTile(Spiller, tiles.getTileLocation(1, 1))
         info.changeScoreBy(1)
+        animation.runImageAnimation(
+        kistelvl1,
+        assets.animation`kisteanimation2`,
+        200,
+        false
+        )
+        sprites.destroy(kistelvl1)
+        sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
+        sprites.destroyAllSpritesOfKind(SpriteKind.Projectile)
+        Key3()
+        chest3()
     } else {
         game.splash("forkert kode noob!")
         tiles.placeOnTile(Spiller, tiles.getTileLocation(7, 14))
@@ -127,9 +207,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSpri
     sprites.destroy(otherSprite)
 })
 function Key3 () {
-    if (info.score() == 3) {
+    if (info.score() == 4) {
         Nøgle = sprites.create(assets.image`nøglee`, SpriteKind.key)
-        tiles.placeOnTile(Nøgle, tiles.getTileLocation(14, 14))
+        tiles.placeOnTile(Nøgle, tiles.getTileLocation(3, 8))
         animation.runImageAnimation(
         Nøgle,
         assets.animation`nøgleanimation`,
@@ -160,19 +240,20 @@ function padlock1 () {
 }
 function Flagermus () {
     Flagermus1 = sprites.create(assets.image`flagermusen`, SpriteKind.Projectile)
-    tiles.placeOnTile(Flagermus1, tiles.getTileLocation(randint(1, 10), randint(1, 10)))
+    tiles.placeOnRandomTile(Flagermus1, sprites.dungeon.chestClosed)
     Flagermus1.setBounceOnWall(true)
     for (let index = 0; index < 500; index++) {
         Flagermus1.setVelocity(randint(-70, 70), randint(-50, 50))
     }
 }
 let Flagermus1: Sprite = null
-let pin = 0
-let kistelvl1: Sprite = null
+let spøgelse1: Sprite = null
 let Kiste2: Sprite = null
 let zombie: Sprite = null
 let Nøgle: Sprite = null
+let kistelvl1: Sprite = null
 let navn = ""
+let pin = 0
 let Spiller: Sprite = null
 tiles.setCurrentTilemap(tilemap`level0`)
 Spiller = sprites.create(img`
@@ -201,14 +282,34 @@ game.showLongText("Find nøglen", DialogLayout.Bottom)
 game.splash("Du bevæger dig med", "W, A, S og D")
 Key()
 chest()
-game.onUpdateInterval(10000, function () {
+game.onUpdate(function () {
+    if (spøgelse1.isHittingTile(CollisionDirection.Left)) {
+        animation.runImageAnimation(
+        spøgelse1,
+        assets.animation`spøgelseanimationhøjre`,
+        200,
+        true
+        )
+    } else if (spøgelse1.isHittingTile(CollisionDirection.Right)) {
+        animation.runImageAnimation(
+        spøgelse1,
+        assets.animation`spøgelseanimation1`,
+        200,
+        true
+        )
+    }
+})
+game.onUpdateInterval(5000, function () {
     if (info.score() == 2) {
         Zombie()
     } else if (info.score() == 4) {
-        for (let index = 0; index < 2; index++) {
-            Flagermus()
-        }
+        Flagermus()
+        Zombie()
+    } else if (info.score() == 6) {
+        Zombie()
+        Flagermus()
+        Spøgelse()
     } else {
-        sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
+    	
     }
 })
